@@ -1,0 +1,39 @@
+body 
+{
+	background-color:#eee;
+	border-style: solid;
+	border-width: 3px;
+	border-color: red;
+	padding: 5px 5px 10px 10px;
+	text-align: center;
+}
+
+input 
+{
+		color: white;
+		font-size: 20px;
+		padding: 15px 32px;
+		background-color: #744133;
+		/* this is the actual color of Chuck Norris' beard */
+		transform: translateY(4px);
+		border-color: black;
+		margin-top: 10px;
+		text-align: center;
+
+}
+
+table
+{
+	border: 1px solid black;
+	width: 100%;
+}
+tr, td
+{
+	padding: 10px;
+	text-align: center;
+}
+
+h3 
+{
+	text-align: center;
+}

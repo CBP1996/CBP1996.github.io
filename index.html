@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+	   <meta charset = "UTF-8">
+	   <meta name = "viewport" content ="width=device-width, initial-scale=1.0">
+	   <meta http-equiv ="X-UA-Compatible" content ="ie=edge">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	   <link rel = "stylesheet" href = "stylesheet.css">
+	   <title>Clinton's Chuck Norris Joke Generator</title>
+  </head>
+  <body style="background-color:#eee;">
+     <div class="jumbotron " style="padding: 0px; text-align: center;">
+	   <h1>Welcome to Clinton's Chuck Norris Joke Generator!</h1>
+     <hr>
+    </div>
+	   <h3 style="text-align: center;">Click the button to load a random joke!</h3>
+	   <input type="button" name="Button" id="button" value="Generate" style="margin:auto;
+  display:block;">
+	   <h3 id="joke"></h3>
+     <div id="player" style="margin:auto;
+  display:block;"></div>
+     <table id="jokes" class="table table-borded"></table>
+     <script src="https://www.youtube.com/player_api"></script>
+	   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     <script>
+       $('input').click(function()
+       {
+           // create youtube player
+           var player;
+           player = new YT.Player('player', 
+           {
+             height: '315',
+             width: '420',
+             videoId: 'xgEOEzpSS40',
+             events: 
+             {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+             }
+            });
+        $.ajax(
+        {
+            url: "http://api.icndb.com/jokes/random",
+            dataType: 'json',
+            success: function(data) 
+            {
+                document.getElementById("joke").innerHTML = data.value.joke;
+                var jokeTable = document.getElementById("jokes");
+                var currentJoke = jokeTable.innerHTML;
+                currentJoke += "<tr><td>" + data.value.joke + "</td></tr>";
+                jokeTable.innerHTML = currentJoke;
+            },
+
+            error: function() 
+            {
+                alert("error");
+            }
+        });  
+
+
+        // autoplay video
+       function onPlayerReady(event) 
+       {
+          event.target.playVideo();
+       }
+
+       // when video ends
+       function onPlayerStateChange(event) 
+       { 
+         if(event.data === 0) 
+         { 
+             //hide video
+             var video = document.querySelector("#player");
+             video.setAttribute("style", "display:none");
+         }       
+         
+       }      
+       });
+</script>
+</body>
+</html>
