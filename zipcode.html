@@ -8,22 +8,25 @@
 	   <link rel = "stylesheet" href = "stylesheet.css">
 	   <title></title>
   </head>
-  <body style="background-color: #eee;">
+<body style="background-color: #eee;">
    <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="index.html">Final Project</a>
         </div>
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.html">Current Location</a></li>
-          <li><a href="zipcode.html">Search by Zipcode</a></li>
+          <li><a href="index.html">Current Location</a></li>
+          <li class="active"><a href="zipcode.html">Search by Zipcode</a></li>
         </ul>
       </div>
     </nav>
 
 
+     <h1>Enter A Zipcode And Find Out The Weather</h1>
+    
+    <input type="text" pattern="[0-9]{5}" title="Five digit zipcodes only" name="zipcode" id="zipcode" min="0" max="99999" maxlength="5" required="required" onkeypress="return !isNaN(event.key)">
+	<button id="search">GO</button>
 
-    <h1>Show the Local Weather In Your Area</h1>
     <div class="text-center">
     <ul class="list-unstyled">
       <li class="btn btn-default" id="city"></li>            
@@ -34,27 +37,26 @@
     </ul>
     </div>
 
-	   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script>
-        $(document).ready(function()
+      	$(document).keypress(function(event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode == '13') {
+        $('#search').click();
+    }
+});
+
+
+
+
+        $('button').click(function()
         {
-              var lat;
-              var lon;
-
-              //ajax
-              $.ajax(
-              {
-                url: "http://ip-api.com/json",
-                dataType: 'json',
-                success: function(stuff)
-                {
-                lat = stuff.lat;
-                lon = stuff.lon;
-
-                var api = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon +"&APPID=ac373c56574d1ae12d914be84ba78670";
-              
-
+              var zipcode = $('input').val();
+              console.log(zipcode);
+             
+               
+                var api = "http://api.openweathermap.org/data/2.5/weather?zip="+zipcode+",us&APPID=ac373c56574d1ae12d914be84ba78670"   
 
             //ajax
             $.ajax(
@@ -81,6 +83,7 @@
                 //convert m/s to mph
                 windSpeed = (windSpeed * 2.23694).toFixed(1) + " mph";
 
+
                 console.log(city);
                 $("#city").html(city);
                 $("#weatherType").html(weatherType);
@@ -99,6 +102,9 @@
                     }
                   }); //ftemp click;
 
+                $("#windSpeed").html(windSpeed);
+
+
                 $("#windSpeed").html(degToCompass(windDirection) + " " + windSpeed);
 
               
@@ -110,10 +116,10 @@
                     }
 
 
-               $("#humidity").html(humidity + "% humidity");       
+                    	$("#humidity").html(humidity + "% humidity");       
 
 
-               if(weatherType == "clear sky")
+                if(weatherType == "clear sky")
                 {
                   document.body.style.backgroundImage = "url('https://crystalseye.files.wordpress.com/2011/08/dsc_0724.jpg?w=840')";
                   document.body.style.backgroundRepeat = "no-repeat";
@@ -125,7 +131,7 @@
 
                 else if(weatherType == "few clouds")
                 {
-                  document.body.style.backgroundImage = "url('http://canitbesaturdaynow.com/images/fpics/1679/033120bd5d2cfd5c05653a107622e41d__large.jpg')";
+                	document.body.style.backgroundImage = "url('http://canitbesaturdaynow.com/images/fpics/1679/033120bd5d2cfd5c05653a107622e41d__large.jpg')";
                   document.body.style.backgroundRepeat = "no-repeat";
                   document.body.style.backgroundSize = "cover";
                   document.body.style.backgroundPosition = "top center";
@@ -134,7 +140,7 @@
 
                 else if(weatherType == "scattered clouds")
                 {
-                  document.body.style.backgroundImage = "url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Currambine_skyscape_scattered_clouds_blue_sky.jpg/800px-Currambine_skyscape_scattered_clouds_blue_sky.jpg')";
+                	document.body.style.backgroundImage = "url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Currambine_skyscape_scattered_clouds_blue_sky.jpg/800px-Currambine_skyscape_scattered_clouds_blue_sky.jpg')";
                   document.body.style.backgroundRepeat = "no-repeat";
                   document.body.style.backgroundSize = "cover";
                   document.body.style.backgroundPosition = "top center";
@@ -143,7 +149,7 @@
 
                 else if(weatherType == "broken clouds" || weatherType == "overcast clouds")
                 {
-                  document.body.style.backgroundImage = "url('https://img00.deviantart.net/6364/i/2017/030/4/1/broken_clouds_by_kevintheman-dax9bd4.jpg')";
+                	document.body.style.backgroundImage = "url('https://img00.deviantart.net/6364/i/2017/030/4/1/broken_clouds_by_kevintheman-dax9bd4.jpg')";
                   document.body.style.backgroundRepeat = "no-repeat";
                   document.body.style.backgroundSize = "cover";
                   document.body.style.backgroundPosition = "top center";
@@ -152,7 +158,7 @@
 
                 else if(weatherType == "light rain" || weatherType == "moderate rain" || weatherType == "shower rain" || weatherType == "drizzle" || weatherType == "light intensity drizzle" || weatherType == "heavy intensity drizzle" || weatherType == "light intensity drizzle rain" || weatherType == "heavy intensity drizzle rain" || weatherType == "shower rain and drizzle" || weatherType == "heavy shower rain and drizzle" || weatherType == "shower drizzle")
                 {
-                  document.body.style.backgroundImage = "url('https://i.ytimg.com/vi/lOt_3tg83Ls/maxresdefault.jpg')";
+                	document.body.style.backgroundImage = "url('https://i.ytimg.com/vi/lOt_3tg83Ls/maxresdefault.jpg')";
                   document.body.style.backgroundRepeat = "no-repeat";
                   document.body.style.backgroundSize = "cover";
                   document.body.style.backgroundPosition = "top center";
@@ -161,7 +167,7 @@
 
                 else if(weatherType == "rain" || weatherType == "heavy intensity rain" || weatherType == "extreme rain" || weatherType == "freezing rain" || weatherType == "light intensity shower rain" || weatherType == "ragged shower rain")
                 {
-                  document.body.style.backgroundImage = "url('https://img.newatlas.com/rain-1.jpg?auto=format%2Ccompress&ch=Width%2CDPR&fit=crop&h=347&q=60&rect=0%2C158%2C1620%2C912&w=616&s=23e9f051756c6eec11efc1ff3b0a1897')";
+                	document.body.style.backgroundImage = "url('https://img.newatlas.com/rain-1.jpg?auto=format%2Ccompress&ch=Width%2CDPR&fit=crop&h=347&q=60&rect=0%2C158%2C1620%2C912&w=616&s=23e9f051756c6eec11efc1ff3b0a1897')";
                   document.body.style.backgroundRepeat = "no-repeat";
                   document.body.style.backgroundSize = "cover";
                   document.body.style.backgroundPosition = "top center";
@@ -170,7 +176,7 @@
 
                 else if(weatherType == "thunderstorm" || weatherType == "very heavy rain" || weatherType == "extreme rain" || weatherType == "thunderstorm with light rain"  || weatherType == "thunderstorm with rain" || weatherType == "thunderstorm with heavy rain" || weatherType == "light thunderstorm" || weatherType == "heavy thunderstorm" || weatherType == "ragged thunderstorm" || weatherType == "thunderstorm with light drizzle" || weatherType == "thunderstorm with drizzle" || weatherType == "thunderstorm with heavy drizzle")
                 {
-                  document.body.style.backgroundImage = "url('https://www.flyingmag.com/sites/flyingmag.com/files/styles/1000_1x_/public/images/2017/06/everything-explained-june.jpg?itok=UsjdV7uz&fc=50,50')";
+                	document.body.style.backgroundImage = "url('https://www.flyingmag.com/sites/flyingmag.com/files/styles/1000_1x_/public/images/2017/06/everything-explained-june.jpg?itok=UsjdV7uz&fc=50,50')";
                   document.body.style.backgroundRepeat = "no-repeat";
                   document.body.style.backgroundSize = "cover";
                   document.body.style.backgroundPosition = "top center";
@@ -179,7 +185,7 @@
 
                 else if(weatherType == "snow" || weatherType == "light snow" || weatherType == "heavy snow" || weatherType == "sleet" || weatherType == "shower sleet" || weatherType == "light rain and snow" || weatherType == "rain and snow" || weatherType == "light shower snow" || weatherType == "shower snow" || weatherType == "heavy shower snow")
                 {
-                  document.body.style.backgroundImage = "url('https://www.wallpaperup.com/uploads/wallpapers/2013/01/07/28265/a37ef69062c8eccadcd03fa1b7d46bf7-375.jpg')";
+                	document.body.style.backgroundImage = "url('https://www.wallpaperup.com/uploads/wallpapers/2013/01/07/28265/a37ef69062c8eccadcd03fa1b7d46bf7-375.jpg')";
                   document.body.style.backgroundRepeat = "no-repeat";
                   document.body.style.backgroundSize = "cover";
                   document.body.style.backgroundPosition = "top center";
@@ -188,7 +194,7 @@
 
                 else if(weatherType == "mist" || weatherType == "fog")
                 {
-                  document.body.style.backgroundImage = "url('https://c.pxhere.com/photos/9b/63/light_rays_clouds_sunbeam-1349457.jpg!d')";
+                	document.body.style.backgroundImage = "url('https://c.pxhere.com/photos/9b/63/light_rays_clouds_sunbeam-1349457.jpg!d')";
                   document.body.style.backgroundRepeat = "no-repeat";
                   document.body.style.backgroundSize = "cover";
                   document.body.style.backgroundPosition = "top center";
@@ -196,21 +202,15 @@
                 }
 
 
-
             },
 
             error: function() 
             {
-                alert("error");
+                alert("This zipcode does not exist. Please try again!");
             }
         }); // ajax
-          } //success from first ajax call
-
-              }); // ip json call
-
-
-              
-
+          
+            
 
         }); 
         // document.ready
