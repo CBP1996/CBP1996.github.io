@@ -45,14 +45,14 @@
               //ajax
               $.ajax(
               {
-                url: "http://ip-api.com/json",
+                url: "https://ipapi.co/json",
                 dataType: 'json',
                 success: function(stuff)
                 {
-                lat = stuff.lat;
-                lon = stuff.lon;
+                lat = stuff.latitude;
+                lon = stuff.longitude;
 
-                var api = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon +"&APPID=ac373c56574d1ae12d914be84ba78670";
+                var api = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon +"&APPID=ac373c56574d1ae12d914be84ba78670";
               
 
 
