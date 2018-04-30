@@ -47,11 +47,21 @@
     }
 });
 
+              
 
 
 
         $('button').click(function()
         {
+
+          reloadData();
+              setInterval(reloadData,120000);
+
+          function reloadData()
+              {
+
+
+
               var zipcode = $('input').val();
               console.log(zipcode);
              
@@ -211,6 +221,7 @@
         }); // ajax
           
             
+          } //reloadData
 
         }); 
         // document.ready

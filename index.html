@@ -39,6 +39,15 @@
       <script>
         $(document).ready(function()
         {
+
+              reloadData();
+              setInterval(reloadData,120000);
+
+
+              function reloadData()
+              {
+
+              
               var lat;
               var lon;
 
@@ -209,7 +218,8 @@
               }); // ip json call
 
 
-              
+            } //reloadData
+  
 
 
         }); 
