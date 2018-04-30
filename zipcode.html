@@ -5,8 +5,7 @@
 	   <meta name = "viewport" content ="width=device-width, initial-scale=1.0">
 	   <meta http-equiv ="X-UA-Compatible" content ="ie=edge">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	   <link rel = "stylesheet" href = "stylesheet.css">
-	   <title></title>
+	   <title>Zipcode Weather</title>
   </head>
 <body style="background-color: #eee;">
    <nav class="navbar navbar-inverse">
@@ -22,20 +21,32 @@
     </nav>
 
 
+    <div class="text-center" style="border: 1px solid grey; margin:0px auto; width: 80%; height:85%">
+    
      <h1>Enter A Zipcode And Find Out The Weather</h1>
     
     <input type="text" pattern="[0-9]{5}" title="Five digit zipcodes only" name="zipcode" id="zipcode" min="0" max="99999" maxlength="5" required="required" onkeypress="return !isNaN(event.key)">
-	<button id="search">GO</button>
+  <button id="search">GO</button>
 
-    <div class="text-center">
-    <ul class="list-unstyled">
-      <li class="btn btn-default" id="city"></li>            
-      <li class="btn btn-default" id="weatherType"></li>
-      <li class="btn btn-default" id="fTemp"></li>            
-      <li class="btn btn-default" id="windSpeed"></li>
-      <li class="btn btn-default" id="humidity"></li>
-    </ul>
+    <h3 id="city" style="font-weight: bold"></h3>
+
+    <h3 id="weatherType" style="font-weight: bold"></h3>
+
+    <h2 id="fTemp" style="font-weight: bold"></h2>
+
+    <p id="windSpeed" style="font-weight: bold"></p>
+
+
+    <p id="humidity" style="font-weight: bold"></p>
+
+    
+
+
+
+
     </div>
+
+  
 
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
